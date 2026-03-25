@@ -24,7 +24,7 @@ jobs:
         working-directory: ./mobile
 
       - name: Build APK
-        run: flutter build apk
+        run: flutter build apk --dart-define=PRODUCTION=true
         working-directory: ./mobile
 
       - name: Upload APK
@@ -52,5 +52,5 @@ jobs:
         working-directory: ./mobile
 
       - name: Build iOS (no codesign)
-        run: flutter build ios --no-codesign
+        run: flutter build ios --no-codesign --dart-define=PRODUCTION=true
         working-directory: ./mobile

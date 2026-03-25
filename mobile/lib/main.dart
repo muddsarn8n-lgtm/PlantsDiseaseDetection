@@ -43,12 +43,14 @@ class _HomePageState extends State<HomePage> {
   bool _isLoadingTreatment = false;
   String? _treatment;
 
-  // Use 10.0.2.2 for Android emulator, localhost for iOS simulator
-  // For physical device, use your machine's local IP address
+  // Production URL — set to your VPS IP or domain
+  // For local dev: Android emulator uses 10.0.2.2, iOS simulator uses localhost
+  static const String productionUrl = 'http://72.62.248.248/api';
+  static const bool isProduction = bool.fromEnvironment('PRODUCTION', defaultValue: false);
+
   String get baseUrl {
-    if (Platform.isAndroid) {
-      return 'http://10.0.2.2:8000';
-    }
+    if (isProduction) return productionUrl;
+    if (Platform.isAndroid) return 'http://10.0.2.2:8000';
     return 'http://localhost:8000';
   }
 
