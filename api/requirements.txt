@@ -3,3 +3,4 @@ uvicorn
 pillow
 httpx
 numpy
+python-multipart
