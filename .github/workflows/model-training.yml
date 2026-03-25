@@ -50,3 +50,23 @@ jobs:
           name: potato-disease-model
           path: models/potato_disease_model/
           retention-days: 30
+
+      - name: Deploy model to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "models/"
+          target: /opt/plants-disease-detection
+
+      - name: Restart TF Serving to load new model
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /opt/plants-disease-detection
+            docker compose restart tf-serving
+            echo "TF Serving restarted — new model version deployed"
