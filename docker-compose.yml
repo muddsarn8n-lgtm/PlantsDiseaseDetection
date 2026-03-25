@@ -9,6 +9,7 @@ services:
     restart: unless-stopped
 
   api:
+    image: ${DOCKERHUB_USERNAME:-muddsarn8n}/potato-disease-api:latest
     build:
       context: ./api
     ports:
@@ -20,6 +21,7 @@ services:
     restart: unless-stopped
 
   frontend:
+    image: ${DOCKERHUB_USERNAME:-muddsarn8n}/potato-disease-frontend:latest
     build:
       context: ./frontend
     ports:
