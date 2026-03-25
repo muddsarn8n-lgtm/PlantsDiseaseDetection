@@ -1,17 +1,20 @@
 # Python
 .venv/
+.venv-metal/
 __pycache__/
 *.pyc
 *.pyo
 
 # Jupyter
 .ipynb_checkpoints/
+load_dataset.py
 
 # Dataset (too large for git)
 dataset/
 
 # Trained models (versioned via MLflow)
 models/potato_disease_model/
+models/plant_disease_model.keras
 
 # MLflow
 mlruns/
