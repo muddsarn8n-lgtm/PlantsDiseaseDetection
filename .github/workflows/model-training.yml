@@ -30,9 +30,17 @@ jobs:
           kaggle datasets download -d arjuntejaswi/plant-village -p /tmp/kaggle
           unzip /tmp/kaggle/plant-village.zip -d /tmp/kaggle/plant-village
           mkdir -p dataset
-          cp -r /tmp/kaggle/plant-village/PlantVillage/Potato___Early_blight dataset/
-          cp -r /tmp/kaggle/plant-village/PlantVillage/Potato___Late_blight dataset/
-          cp -r /tmp/kaggle/plant-village/PlantVillage/Potato___healthy dataset/
+          cp -r /tmp/kaggle/plant-village/PlantVillage/Potato___* dataset/
+          cp -r /tmp/kaggle/plant-village/PlantVillage/Tomato_Bacterial_spot dataset/Tomato___Bacterial_spot
+          cp -r /tmp/kaggle/plant-village/PlantVillage/Tomato_Early_blight dataset/Tomato___Early_blight
+          cp -r /tmp/kaggle/plant-village/PlantVillage/Tomato_Late_blight dataset/Tomato___Late_blight
+          cp -r /tmp/kaggle/plant-village/PlantVillage/Tomato_Leaf_Mold dataset/Tomato___Leaf_Mold
+          cp -r /tmp/kaggle/plant-village/PlantVillage/Tomato_Septoria_leaf_spot dataset/Tomato___Septoria_leaf_spot
+          cp -r "/tmp/kaggle/plant-village/PlantVillage/Tomato_Spider_mites_Two_spotted_spider_mite" "dataset/Tomato___Spider_mites Two-spotted_spider_mite"
+          cp -r /tmp/kaggle/plant-village/PlantVillage/Tomato__Target_Spot dataset/Tomato___Target_Spot
+          cp -r /tmp/kaggle/plant-village/PlantVillage/Tomato__Tomato_YellowLeaf__Curl_Virus dataset/Tomato___Tomato_Yellow_Leaf_Curl_Virus
+          cp -r /tmp/kaggle/plant-village/PlantVillage/Tomato__Tomato_mosaic_virus dataset/Tomato___Tomato_mosaic_virus
+          cp -r /tmp/kaggle/plant-village/PlantVillage/Tomato_healthy dataset/Tomato___healthy
           echo "Dataset classes:" && ls dataset/
 
       - name: Update dataset path for CI
@@ -47,7 +55,7 @@ jobs:
       - name: Upload model artifact
         uses: actions/upload-artifact@v4
         with:
-          name: potato-disease-model
+          name: plant-disease-model
           path: models/potato_disease_model/
           retention-days: 30
 

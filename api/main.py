@@ -19,7 +19,21 @@ app.add_middleware(
 
 TF_SERVING_URL = os.getenv("TF_SERVING_URL", "http://localhost:8501/v1/models/potato_disease_model:predict")
 
-CLASS_NAMES = ["Potato___Early_blight", "Potato___Late_blight", "Potato___healthy"]
+CLASS_NAMES = [
+    "Potato___Early_blight",
+    "Potato___Late_blight",
+    "Potato___healthy",
+    "Tomato___Bacterial_spot",
+    "Tomato___Early_blight",
+    "Tomato___Late_blight",
+    "Tomato___Leaf_Mold",
+    "Tomato___Septoria_leaf_spot",
+    "Tomato___Spider_mites Two-spotted_spider_mite",
+    "Tomato___Target_Spot",
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+    "Tomato___Tomato_mosaic_virus",
+    "Tomato___healthy",
+]
 
 
 def read_image(data: bytes) -> np.ndarray:
@@ -58,19 +72,58 @@ async def predict(file: UploadFile = File(...)):
 
 @app.get("/treatment/{disease}")
 async def get_treatment(disease: str):
-    # TODO: Replace dummy responses with actual treatment information
     treatments = {
         "Potato___Early_blight": {
-            "disease": "Early Blight",
-            "treatment": "This is a dummy treatment for Early Blight. Actual treatment info coming soon.",
+            "disease": "Potato Early Blight",
+            "treatment": "Apply fungicides containing chlorothalonil or mancozeb. Remove infected leaves. Ensure proper spacing for air circulation. Practice crop rotation.",
         },
         "Potato___Late_blight": {
-            "disease": "Late Blight",
-            "treatment": "This is a dummy treatment for Late Blight. Actual treatment info coming soon.",
+            "disease": "Potato Late Blight",
+            "treatment": "Apply fungicides containing metalaxyl or copper-based products. Remove and destroy infected plants immediately. Avoid overhead irrigation. Use resistant varieties.",
         },
         "Potato___healthy": {
-            "disease": "Healthy",
-            "treatment": "Your potato plant is healthy! No treatment needed.",
+            "disease": "Healthy Potato",
+            "treatment": "Your potato plant is healthy! Continue regular watering and fertilization.",
+        },
+        "Tomato___Bacterial_spot": {
+            "disease": "Tomato Bacterial Spot",
+            "treatment": "Apply copper-based bactericides. Remove infected plant debris. Use disease-free seeds and transplants. Avoid overhead watering.",
+        },
+        "Tomato___Early_blight": {
+            "disease": "Tomato Early Blight",
+            "treatment": "Apply fungicides containing chlorothalonil or copper. Remove lower infected leaves. Mulch around plants to prevent soil splash. Practice crop rotation.",
+        },
+        "Tomato___Late_blight": {
+            "disease": "Tomato Late Blight",
+            "treatment": "Apply fungicides containing metalaxyl or chlorothalonil. Remove and destroy infected plants. Improve air circulation. Avoid wetting foliage.",
+        },
+        "Tomato___Leaf_Mold": {
+            "disease": "Tomato Leaf Mold",
+            "treatment": "Improve air circulation and reduce humidity. Apply fungicides containing chlorothalonil. Remove infected leaves. Avoid overhead watering.",
+        },
+        "Tomato___Septoria_leaf_spot": {
+            "disease": "Tomato Septoria Leaf Spot",
+            "treatment": "Apply fungicides containing chlorothalonil or copper. Remove infected lower leaves. Mulch to prevent soil splash. Practice crop rotation.",
+        },
+        "Tomato___Spider_mites Two-spotted_spider_mite": {
+            "disease": "Tomato Spider Mites",
+            "treatment": "Spray with insecticidal soap or neem oil. Increase humidity around plants. Introduce predatory mites. Remove heavily infested leaves.",
+        },
+        "Tomato___Target_Spot": {
+            "disease": "Tomato Target Spot",
+            "treatment": "Apply fungicides containing chlorothalonil or mancozeb. Remove infected plant debris. Ensure proper spacing for air circulation. Practice crop rotation.",
+        },
+        "Tomato___Tomato_Yellow_Leaf_Curl_Virus": {
+            "disease": "Tomato Yellow Leaf Curl Virus",
+            "treatment": "Control whitefly vectors with insecticides or reflective mulch. Remove and destroy infected plants. Use resistant varieties. Install insect-proof netting.",
+        },
+        "Tomato___Tomato_mosaic_virus": {
+            "disease": "Tomato Mosaic Virus",
+            "treatment": "Remove and destroy infected plants. Disinfect tools with bleach solution. Wash hands before handling plants. Use resistant varieties. Avoid tobacco products near plants.",
+        },
+        "Tomato___healthy": {
+            "disease": "Healthy Tomato",
+            "treatment": "Your tomato plant is healthy! Continue regular watering and fertilization.",
         },
     }
 

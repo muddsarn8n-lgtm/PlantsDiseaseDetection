@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Potato Disease Detection',
+      title: 'Plant Disease Detection',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorSchemeSeed: Colors.green,
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           _rawClass = data['class'] as String;
           _predictedClass = _rawClass!
-              .replaceAll('Potato___', '')
+              .replaceAllMapped(RegExp(r'^(Potato|Tomato)___'), (m) => '${m.group(1)} - ')
               .replaceAll('_', ' ');
           _confidence = (data['confidence'] as num).toDouble();
         });
@@ -180,7 +180,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Potato Disease Detection'),
+        title: const Text('Plant Disease Detection'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(

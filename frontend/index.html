@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potato Disease Detection</title>
+    <title>Plant Disease Detection</title>
     <style>
         * {
             margin: 0;
@@ -171,8 +171,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Potato Disease Detection</h1>
-        <p class="subtitle">Upload a potato leaf image to detect disease</p>
+        <h1>Plant Disease Detection</h1>
+        <p class="subtitle">Upload a potato or tomato leaf image to detect disease</p>
 
         <div class="upload-area" id="uploadArea">
             <div class="upload-icon">&#128248;</div>
@@ -276,7 +276,7 @@
                 if (!response.ok) throw new Error("Prediction failed");
 
                 const data = await response.json();
-                const displayName = data.class.replace("Potato___", "").replace("_", " ");
+                const displayName = data.class.replace(/^(Potato|Tomato)___/, "$1 - ").replaceAll("_", " ");
 
                 detectedDisease = data.class;
                 resultClass.textContent = displayName;
