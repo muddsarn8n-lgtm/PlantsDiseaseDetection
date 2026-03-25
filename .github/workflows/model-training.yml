@@ -20,15 +20,29 @@ jobs:
           python-version: "3.13"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt kaggle
 
-      - name: Download dataset
+      - name: Download dataset from Kaggle
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
         run: |
-          echo "TODO: Add dataset download step (e.g., from S3, GCS, or Kaggle)"
-          echo "For now, the dataset must be available at ./dataset/"
+          kaggle datasets download -d arjuntejaswi/plant-village -p /tmp/kaggle
+          unzip /tmp/kaggle/plant-village.zip -d /tmp/kaggle/plant-village
+          mkdir -p dataset
+          cp -r /tmp/kaggle/plant-village/PlantVillage/Potato___Early_blight dataset/
+          cp -r /tmp/kaggle/plant-village/PlantVillage/Potato___Late_blight dataset/
+          cp -r /tmp/kaggle/plant-village/PlantVillage/Potato___healthy dataset/
+          echo "Dataset classes:" && ls dataset/
+
+      - name: Update dataset path for CI
+        run: |
+          sed -i 's|DATASET_PATH = .*|DATASET_PATH = "dataset"|' load_dataset.py
 
       - name: Train model and register in MLflow
-        run: jupyter nbconvert --to script --execute load_dataset.ipynb --ExecutePreprocessor.timeout=600
+        run: |
+          jupyter nbconvert --to script load_dataset.ipynb
+          python load_dataset.py
 
       - name: Upload model artifact
         uses: actions/upload-artifact@v4
