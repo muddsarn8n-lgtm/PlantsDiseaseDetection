@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
 
   // Production URL — set to your VPS IP or domain
   // For local dev: Android emulator uses 10.0.2.2, iOS simulator uses localhost
-  static const String productionUrl = 'http://72.62.248.248/api';
+  static const String productionUrl = 'https://plantdisease.thinkverseai.ca/api';
   static const bool isProduction = bool.fromEnvironment('PRODUCTION', defaultValue: false);
 
   String get baseUrl {
