@@ -1,0 +1,38 @@
+name: Train & Register Model
+
+on:
+  push:
+    paths:
+      - "load_dataset.ipynb"
+      - "mlflow_config.py"
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download dataset
+        run: |
+          echo "TODO: Add dataset download step (e.g., from S3, GCS, or Kaggle)"
+          echo "For now, the dataset must be available at ./dataset/"
+
+      - name: Train model and register in MLflow
+        run: jupyter nbconvert --to script --execute load_dataset.ipynb --ExecutePreprocessor.timeout=600
+
+      - name: Upload model artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: potato-disease-model
+          path: models/potato_disease_model/
+          retention-days: 30

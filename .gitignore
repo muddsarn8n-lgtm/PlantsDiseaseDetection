@@ -1,0 +1,36 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dataset (too large for git)
+dataset/
+
+# Trained models (versioned via MLflow)
+models/potato_disease_model/
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# macOS
+.DS_Store
+
+# Flutter
+mobile/build/
+mobile/.dart_tool/
+mobile/ios/Pods/
+mobile/ios/.symlinks/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.claude/
+dataset_summary.json

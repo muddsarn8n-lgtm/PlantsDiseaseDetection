@@ -1,0 +1,29 @@
+services:
+  tf-serving:
+    image: tensorflow/serving
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./models:/models
+    command: --model_config_file=/models/models.config
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./api
+    ports:
+      - "8000:8000"
+    environment:
+      - TF_SERVING_URL=http://tf-serving:8501/v1/models/potato_disease_model:predict
+    depends_on:
+      - tf-serving
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+    restart: unless-stopped
